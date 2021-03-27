@@ -5,4 +5,6 @@ Print colorized output
 
 **how-to**  
 
-`crates.rb usd eur rsd
+```ruby
+crates.rb usd eur rsd
+```
