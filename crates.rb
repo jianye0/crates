@@ -21,7 +21,7 @@ module C
 
   class Rates
 
-    attr_reader :coins, :currency, :table, :count, :price, :prices
+    attr_reader :coins, :currency, :table, :count, :prices
 
     def self.get!( currency = :eur, opts = {} )
       @rates = Rates.new currency, opts
@@ -40,7 +40,7 @@ module C
       @print = opts[:print] unless opts[:print].nil?
       opts[:coins] ||= @coins
       @currency = currency.to_s.upcase unless currency.nil?
-      @table = currency.to_s.downcase  + '_rates.csv'
+      @table = @currency.to_s.downcase  + '_rates.csv'
       @count = 0
       execute_request(opts[:coins])
     end
@@ -62,9 +62,9 @@ module C
       coins.each do |coin|
         @data_array << value = data["RAW"][coin][@currency]["PRICE"].round(2)
         @prices[coin] = value
-        (puts "[".yellow.bold + "#{coin}".green.bold + "]".yellow.bold + ": #{value}".bold) unless @print == false
+        puts "[".yellow.bold + "#{coin}".green.bold + "]".yellow.bold + ": #{value}".bold unless @print == false
       end
-      puts '' unless @print == false
+      puts unless @print == false
       save_csv_output! unless @save == false
      rescue
       @count += 1
@@ -83,14 +83,15 @@ module C
       30.times { print '='.green } and puts 
     end
   
-    def save_csv_output!
-      create_csv_headers unless File.exist?(@table)
+    def save_csv_output!( coins = nil )
+      coins ||= @coins
+      create_csv_headers(coins) unless File.exist?(@table)
       CSV.open(@table, 'ab') { |column| column << @data_array }
     end
 
-    def create_csv_headers
+    def create_csv_headers( coins = [] )
       header_array = ['TIME']
-      @coins.each { |coin| header_array << coin }
+      coins.each { |coin| header_array << coin }
       CSV.open(@table, "w" ) { |header| header << header_array }
     end
   end
