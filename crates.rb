@@ -65,7 +65,7 @@ module C
         puts "[".yellow.bold + "#{coin}".green.bold + "]".yellow.bold + ": #{value}".bold unless @print == false
       end
       puts unless @print == false
-      save_csv_output! unless @save == false
+      save_csv_output!(coins) unless @save == false
      rescue
       @count += 1
       if @count < RPT
