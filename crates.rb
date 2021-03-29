@@ -21,7 +21,8 @@ module C
 
   class Rates
 
-    attr_reader :coins, :currency, :table, :count, :prices
+    attr_reader   :response, :data, :url, :table, :count, :prices
+    attr_accessor :currency, :coins
 
     def self.get!( currency = :eur, opts = {} )
       @rates = Rates.new currency, opts
@@ -29,9 +30,9 @@ module C
     end
 
     def initialize( currency = :eur, opts = {} )
-      @save  = opts[:save]  || true
-      @print = opts[:print] || true
-      @coins = opts[:coins] || COINS
+      @save  = opts[:save ].nil? ? true : opts[:save]
+      @print = opts[:print].nil? ? true : opts[:print]
+      @coins = opts[:coins].nil? ? COINS : Array(opts[:coins])
       @currency = currency.to_s.upcase
     end
 
@@ -49,29 +50,37 @@ module C
       @prices[coin.to_s.upcase]
     end
 
+    def save?
+      @save == true
+    end
+
+    def print?
+      @print == true
+    end
+
     private
 
     def execute_request( coins = [] )
       @prices, @data_array, coin_uri = {}, [], ''
       coins.collect { |coin| coin_uri << "fsyms=#{coin.to_s}&" }
-      url  = URL + "#{coin_uri}tsyms=#{@currency}"
-      page = RestClient.get url
-      data = JSON.parse page
-      print_terminal_header unless @print == false
+      @url = URL + "#{coin_uri}tsyms=#{@currency}"
+      @response = RestClient.get @url
+      @data = JSON.parse @response
+      print_terminal_header if print?
       @data_array << Time.now.to_s
       coins.each do |coin|
-        @data_array << value = data["RAW"][coin][@currency]["PRICE"].round(2)
+        @data_array << value = @data["RAW"][coin][@currency]["PRICE"].round(2)
         @prices[coin] = value
-        puts "[".yellow.bold + "#{coin}".green.bold + "]".yellow.bold + ": #{value}".bold unless @print == false
+        puts "[".yellow.bold + "#{coin}".green.bold + "]".yellow.bold + ": #{value}".bold if print?
       end
-      puts unless @print == false
-      save_csv_output!(coins) unless @save == false
+      puts if print?
+      save_csv_output!(coins) if save?
      rescue
       @count += 1
       if @count < RPT
-        puts " > Request No".red + "[".green + @count.to_s.yellow + "]".green + " faild".red
+        puts " > Request No".red + "[".green + @count.to_s.yellow + "]".green + " faild".red if print?
       else
-        puts "[".green.bold + "EXIT!".red.bold + "]".green.bold + " too many faild requests".red
+        puts "[".green.bold + "EXIT!".red.bold + "]".green.bold + " too many faild requests".red if print?
         exit 1
       end
       execute_request coins, opts
@@ -98,9 +107,22 @@ module C
 end
 
   if ARGV.include?('-h') or ARGV.include?('--help')
-    puts "\n Enter fiat currencies as arguments:".yellow
-    puts "  $ ./crates.rb usd eur rsd\n".green
+    puts "\n Enter fiat currencies as arguments:\n".yellow
+    puts "  $ ruby crates.rb usd eur rsd".green
+    puts "  $ ruby crates.rb usd eur rsd --no-save".green
+    puts "  $ ruby crates.rb usd eur rsd --no-print\n".green
+    exit 1
   else
-    @rates = C::Rates.new
-    ARGV.empty? ? @rates.get(:eur) : ARGV.each { |fiat| @rates.get fiat }
+    ARGV.include?('--no-save') ? ns = false : ns = true
+    ARGV.include?('--no-print') ? np = false : np = true
+    @rates = C::Rates.new(:eur, save: ns, print: np)
+  end
+  
+  unless ARGV.empty?
+    ARGV.each do |fiat|
+      next if %w[--no-print --no-save].include?(fiat.to_s.downcase)
+      @rates.get fiat
+    end
+  else
+    @rates.get
   end
