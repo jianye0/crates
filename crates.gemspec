@@ -24,8 +24,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_runtime_dependency 'rest-client'
-  s.add_runtime_dependency 'json'
-  s.add_runtime_dependency 'csv'
   s.add_runtime_dependency 'colorize'
 
   s.add_development_dependency 'bundler'

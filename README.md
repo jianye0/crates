@@ -52,7 +52,7 @@ accessible with Rates#prices and Rates#price(:symbol).
  # => 200.31
 ```  
 
-Get accept same parameters as C::Rates.new.
+`#get` accept same parameters as C::Rates.new.
 This will not change default configuration.
 
 ```ruby
