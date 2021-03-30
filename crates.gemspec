@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version     = '0.1.0'
   s.summary     = 'Print and Save Cryptocurrency Rates'
   s.description = <<~DESC
-    Collect cryptocurrency prices for desired fiat currency.
+    Collect cryptocurrency prices for any fiat currency.
     Print colorized output (or not), save as CSV (or not).
     Lightweight, fast, simple and easily extendible. 
   DESC
@@ -23,11 +23,11 @@ Gem::Specification.new do |s|
   s.executables = ['crates']
   s.require_paths = ['lib']
 
-  s.add_runtime_dependency 'rest-client'
-  s.add_runtime_dependency 'colorize'
+  s.add_runtime_dependency 'rest-client', '~> 2.1.0'
+  s.add_runtime_dependency 'colorize', '~> 0.8.1'
 
-  s.add_development_dependency 'bundler'
-  s.add_development_dependency 'rake'
+  s.add_development_dependency 'bundler', '~> 2.2.9'
+  s.add_development_dependency 'rake', '~> 13.0.3'
 end
 
 
