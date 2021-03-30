@@ -5,11 +5,11 @@ require_relative '../lib/crates.rb'
   COINS = %w[ BTC LTC XMR ETH BCH ZEC ].freeze
 
   BANNER = [
-    " Run C::Rates with fiat currencies as arguments:".cyan,
+    "\n Run C::Rates with fiat currencies as arguments:".cyan,
     "  $ ruby bin/crates usd eur rsd".light_green,
     "     --no-print".light_green,
     "     --no-save".light_green,
-    " To edit default coins, open 'bin/crates'".cyan
+    " To edit default coins, open 'bin/crates'\n".cyan
   ]
 
   if ARGV.include?('-h') or ARGV.include?('--help')

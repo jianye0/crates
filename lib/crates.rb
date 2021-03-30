@@ -8,7 +8,7 @@ module C
   # set default coins
   COINS = %w[ BTC XMR LTC ETH BCH ZEC ].freeze
   # max number of retries
-  RPT = 3
+  MAX_RETRY = 3
   # api base-url
   URL = 'https://min-api.cryptocompare.com/data/pricemultifull?'.freeze
 

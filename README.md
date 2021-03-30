@@ -168,3 +168,7 @@ To make it reliable and worth of using, plan is to add next functions:
  - add support for proxy and headers rotation
  - create charts from prices at given time (each 10min etc)
  - create GIF animation from charts per time (each 30 min etc)
+
+# PREVIEW
+
+[GIF](docs/crates.gif)
