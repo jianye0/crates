@@ -4,7 +4,18 @@
  - Save data into object
  - Save to CSV and print colorized output
  - Print-only without saving
- - Save-only without printing
+ - Save-only without printing  
+
+# How to install
+
+Make sure you have ruby and git installed:
+
+```bash
+git clone https://github.com/decentralizuj/crates.git
+cd crates
+bundle install
+# This will install colorize and rest-client
+```  
 
 # How to run
 
