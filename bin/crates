@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/crates.rb'
+
+  COINS = %w[ BTC LTC XMR ETH BCH ZEC ].freeze
+
+  BANNER = [
+    " Run C::Rates with fiat currencies as arguments:".cyan,
+    "  $ ruby bin/crates usd eur rsd".light_green,
+    "     --no-print".light_green,
+    "     --no-save".light_green,
+    " To edit default coins, open 'bin/crates'".cyan
+  ]
+
+  if ARGV.include?('-h') or ARGV.include?('--help')
+    puts BANNER
+    exit 1
+  else
+    ARGV.include?('--no-save') ? ns = false : ns = true
+    ARGV.include?('--no-print') ? np = false : np = true
+    @rates = C::Rates.new(:eur, save: ns, print: np, coins: COINS)
+  end
+  
+  unless ARGV.empty?
+    ARGV.each do |fiat|
+      next if %w[--no-print --no-save].include?(fiat.to_s.downcase)
+      @rates.get fiat
+    end
+  else
+    @rates.get :eur, save: false
+  end
+
