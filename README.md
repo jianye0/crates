@@ -171,4 +171,4 @@ To make it reliable and worth of using, plan is to add next functions:
 
 # PREVIEW
 
-[GIF!](docs/crates.gif)
+![GIF](docs/crates.gif)
