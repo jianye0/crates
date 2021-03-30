@@ -1,6 +1,6 @@
 # Introduction
 Fast and easy way to get all data about all coins in any fiat value.
-Get data for analysis or use it to make a brand new crypto app.
+Get data for analyze or use it to make a brand new crypto app.
 After scrapping prices in CSV file, and printing colorized output,
 you can access each rate with `#price(coin)`. No configuration, just run.
 
@@ -171,4 +171,4 @@ To make it reliable and worth of using, plan is to add next functions:
 
 # PREVIEW
 
-[GIF](docs/crates.gif)
+[GIF!](docs/crates.gif)
