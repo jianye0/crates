@@ -2,7 +2,7 @@
 
 require_relative '../lib/crates.rb'
 
-  COINS = %w[ BTC LTC XMR ETH BCH ZEC ].freeze
+  COINS = %w[ BTC LTC XMR ETH BCH ZEC NEO ].freeze
 
   BANNER = [
     "\n Run C::Rates with fiat currencies as arguments:".cyan,

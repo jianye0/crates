@@ -6,7 +6,7 @@ require 'rest-client'
 module C
   
   # set default coins
-  COINS = %w[ BTC XMR LTC ETH BCH ZEC ].freeze
+  COINS = %w[ BTC LTC XMR ETH BCH ZEC NEO ].freeze
   # max number of retries
   MAX_RETRY = 3
   # api base-url

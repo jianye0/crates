@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'crates'
-  s.version     = '0.1.0'
+  s.version     = '0.1.1'
   s.summary     = 'Print and Save Cryptocurrency Rates'
   s.description = <<~DESC
     Collect cryptocurrency prices for any fiat currency.
