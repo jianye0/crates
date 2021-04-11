@@ -21,6 +21,16 @@ Make sure you have ruby and git installed:
  bundle install
 ```  
 
+Or install local:
+
+```ruby
+ gem install crates
+
+ # install from rubygems
+
+ gem 'crates', '~> 0.1.0'
+```  
+
 # How to run
 
 If you want to edit default coins:
